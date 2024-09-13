@@ -166,6 +166,8 @@ export class FrameLogic {
         if(!template){
             throw new Error("No template found. Can not render");
         }
+
+        body.innerHTML = "";
         
         template(frame,body,subFrame);
 

@@ -19,6 +19,8 @@ export class PageLogic {
             throw new Error("No template found. Can not render");
         }
 
+        body.innerHTML = "";
+        
         template(page,body);
 
         page.data["rendered"] = true;

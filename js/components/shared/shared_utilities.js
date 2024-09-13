@@ -5,7 +5,7 @@ import { SubFrameController } from "../../controllers/sub_frame_controller.js";
 import { Intent } from "../src/intents/intent.js";
 import { ENTITYTYPES } from "./base_component.js";
 
-export const navigator = (component,intent) =>{
+export const pathNavigator = (component,intent) =>{
 
     if(!component){
         throw new Error("Component can not be null or undefined");
@@ -48,7 +48,6 @@ export const navigator = (component,intent) =>{
                 throw new Error(`Frame not found for compenent. ${component["data"]}`);
             }
 
-            frame_controller.goToSubFrame(frame,subFrame);
             
             if(intent){
                 if(intent["data"]["entityType"] != ENTITYTYPES.INTENT){
@@ -56,7 +55,8 @@ export const navigator = (component,intent) =>{
                 }
                 subFrame.addIntent(intent);
             }
-
+            
+            frame_controller.goToSubFrame(frame,subFrame);
             subFrame_controller.gotoPage(subFrame,component);
         }           
         break;
@@ -102,4 +102,39 @@ export const refresher = (component) =>{
 
 export const createIntent = (name,payload) =>{
     return new Intent(name,payload);
+}
+
+export const generatePath = (component) =>{
+    let data = {
+        "path":{
+            "frame":null,
+            "subFrame":null,
+            "page":null,
+        },
+    };
+
+    switch (component["data"]["entityType"]) {
+        case ENTITYTYPES.FRAME:{
+            data["path"]["frame"] = component;
+        }
+        break;
+
+        case ENTITYTYPES.SUBFRAME:{
+            data["path"]["frame"] = component["data"]["frame"];
+            data["path"]["subFrame"] = component;
+        }  
+        break;
+        case ENTITYTYPES.PAGE:{
+            data["path"]["frame"] = component["data"]["subFrame"]["data"]["frame"];
+            data["path"]["subFrame"] = component["data"]["subFrame"];
+            data["path"]["page"] = component;
+            
+        }           
+        break;
+
+        default:
+            throw new Error(`Invalid entity type ${component["data"]["entityType"]}`);
+    }
+
+    return data;
 }

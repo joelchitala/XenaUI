@@ -97,6 +97,11 @@ export class FrameController extends BaseController {
     goToSubFrame(frame,subFrame){
         try {
             const currentSubFrame = FrameLogic.getCurrentSubFrame(frame);
+
+            if(currentSubFrame == subFrame){
+                return;
+            }
+
             FrameLogic.appendToHistoryStack(frame,currentSubFrame);
             FrameLogic.resetForwardStack(frame);
 

@@ -49,6 +49,11 @@ export class SubFrameController extends BaseController {
 
     gotoPage(subFrame,page){
         try {
+
+            if(page == SubFrameLogic.getCurrentPage(subFrame)){
+                return;
+            }
+            
             const frame = subFrame.data["frame"];
             SubFrameLogic.setCurrentPage(subFrame,page);
             this.render(subFrame);

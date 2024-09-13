@@ -13,7 +13,8 @@ export class HubLogic{
     static setCurrentFrame(hub,frame){
 
         if(hub.data["currentFrame"] == frame){
-            throw new Error(`Failed to set current frame. Current frame is already set to ${frame.data["id"]}`);
+            // throw new Error(`Failed to set current frame. Current frame is already set to ${frame.data["id"]}`);
+            return;
         }
 
         hub.data["currentFrame"] = frame;

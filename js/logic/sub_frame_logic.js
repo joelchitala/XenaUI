@@ -75,6 +75,8 @@ export class SubFrameLogic {
         if(!template){
             throw new Error("No template found. Can not render");
         }
+        
+        body.innerHTML = "";
 
         template(subFrame,body,page);
 

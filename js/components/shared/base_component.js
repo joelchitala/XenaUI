@@ -23,6 +23,10 @@ export class BaseComponent {
         return this.data.id;
     }
 
+    getBody(){
+        return this.data.body;
+    }
+
     setRenderTrue(){
         this.data.rendered = true;
     }
