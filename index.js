@@ -1,12 +1,12 @@
-import { GOTO_FRAME, GOTO_SUBFRAME, REGISTERED_FRAME, REGISTERED_SUBFRAME } from "./components/shared/commands.js";
-import { navigator } from "./components/shared/shared_utilities.js";
-import { Hub } from "./components/src/hub/hub.js";
-import { FrameController } from "./controllers/frame_controller.js";
-import { HubController } from "./controllers/hub_controller.js";
-import { PageController } from "./controllers/page_controller.js";
-import { SubFrameController } from "./controllers/sub_frame_controller.js";
-import { FrameLogic } from "./logic/frame_logic.js";
-import { HubLogic } from "./logic/hub_logic.js";
+import { GOTO_FRAME, GOTO_SUBFRAME, REGISTERED_FRAME, REGISTERED_SUBFRAME } from "./js/components/shared/commands.js";
+import { navigator } from "./js/components/shared/shared_utilities.js";
+import { Hub } from "./js/components/src/hub/hub.js";
+import { FrameController } from "./js/controllers/frame_controller.js";
+import { HubController } from "./js/controllers/hub_controller.js";
+import { PageController } from "./js/controllers/page_controller.js";
+import { SubFrameController } from "./js/controllers/sub_frame_controller.js";
+import { FrameLogic } from "./js/logic/frame_logic.js";
+import { HubLogic } from "./js/logic/hub_logic.js";
 
 const contentElement = document.querySelector("#content");
 const hub = new Hub();
