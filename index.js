@@ -12,25 +12,6 @@ const contentElement = document.querySelector("#content");
 const hub = new Hub();
 hub.setParentElement(contentElement);
 
-
-
-
-
-hub.registerEventProxy("notify-goto-subframe", GOTO_SUBFRAME, (event)=>{
-    const payload = event.data["payload"]
-    
-    const hub = payload["hub"];
-
-    // if(HubLogic.getCurrentFrame(hub) == null){
-    //     new HubController().goToFrame(payload["frame"]);
-    // }
-
-    // console.log(payload);
-    
-    
-});
-
-
 const frameController = new FrameController();
 const subFrameController = new SubFrameController();
 const pageController = new PageController();
