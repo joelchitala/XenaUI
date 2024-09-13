@@ -8,12 +8,26 @@ export class Page extends BaseComponent{
             ...this.data,
             ...{
                 "name":name,
-                "body":document.createElement('div'),
-                "template":null,
                 "subFrame":null,
                 "refresh":refresh,
                 "intent":null,
             }
         }
+    }
+
+    getIntent(name){
+        const subFrame = this.data.subFrame;
+
+        if(!subFrame){
+            return null;
+        }
+
+        const intent = subFrame.getIntent(name);
+
+        if(!intent){
+            return null;
+        }
+        
+        return intent["data"];
     }
 }

@@ -7,12 +7,38 @@ export class SubFrame extends BaseComponent{
         this.data = {
             ...this.data,
             ...{
-                "body":document.createElement('div'),
                 "frame":null,
                 "pages":[],
                 "currentPage":null,
-                "template":null,
+                "intents":{}
             }
         }
+    }
+
+    getIntent(name){
+        return this.data.intents[name];
+    }
+
+    addIntent(intent){
+        if(!intent){
+            throw new Error("Intent can not be null or undefined");
+        }
+        this.data.intents[intent.getName()] = intent;
+    }
+
+    removeIntent(name){
+        const intent = this.data.intents[name];
+
+        if(intent){
+            delete this.data.intents[name];
+        }
+
+        return intent;
+    }
+
+    clearIntents(){
+        this.data.intents = {};
+
+        return this.data.intents;
     }
 }

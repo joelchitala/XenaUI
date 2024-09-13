@@ -113,7 +113,7 @@ export class FrameController extends BaseController {
 
     refresh(frame){
         try {
-            FrameLogic.refresh(frame);            
+            FrameLogic.refresh(frame);           
         } catch (error) {
             console.error(error);
         }

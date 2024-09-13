@@ -6,7 +6,7 @@ import { BaseController } from "./base_controller.js";
 
 export class PageController extends BaseController{
     
-    createPage(subFrame,name,template = (self,body,intent) =>{}){
+    createPage(subFrame,name,template = (self,body) =>{}){
         let page;
 
         try {
@@ -62,15 +62,14 @@ export class PageController extends BaseController{
         }
     }
 
-    render(page,intent){
+    render(page){
         if(!page){
             return;
         }
         try {
             const subFrame = page.data["subFrame"];
             const frame = subFrame.data["frame"];
-            PageLogic.setIntent(page,intent);
-            PageLogic.render(page,intent);
+            PageLogic.render(page);
             this.emit(RENDER_PAGE,{"hub":this.hub,"frame":frame,"subFrame":subFrame,"page":page});
         } catch (error) {
             console.error(error);

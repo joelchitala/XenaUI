@@ -1,13 +1,5 @@
 export class PageLogic {
-    static setIntent(page,intent){
-        page.data["intent"] = intent;
-    }
-
-    static getIntent(page){
-        return page.data["intent"];
-    }
-    
-    static setTemplate(page,template = (self,body,intent)=>{}){
+    static setTemplate(page,template = (self,body)=>{}){
         page.data["template"] = template;
     }
 
@@ -18,7 +10,7 @@ export class PageLogic {
         return this.render(page,this.getIntent(page));
     }
 
-    static render(page,intent){
+    static render(page){
 
         const body = page.data["body"];
         const template = page.data["template"];
@@ -27,7 +19,7 @@ export class PageLogic {
             throw new Error("No template found. Can not render");
         }
 
-        template(page,body,intent);
+        template(page,body);
 
         page.data["rendered"] = true;
 

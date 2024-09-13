@@ -47,11 +47,11 @@ export class SubFrameController extends BaseController {
         return FrameLogic.getSubFrames(frame);
     }
 
-    gotoPage(subFrame,page,intent){
+    gotoPage(subFrame,page){
         try {
             const frame = subFrame.data["frame"];
             SubFrameLogic.setCurrentPage(subFrame,page);
-            this.render(subFrame,intent);
+            this.render(subFrame);
             this.emit(GOTO_PAGE,{"hub":this.hub,"frame":frame,"subFrame":subFrame,"page":page});
         } catch (error) {
             console.error(error);
@@ -77,14 +77,14 @@ export class SubFrameController extends BaseController {
         }
     }
 
-    render(subFrame,intent){
+    render(subFrame){
         if(!subFrame){
             return;
         }
         try {
             const frame = subFrame.data["frame"];
             SubFrameLogic.render(subFrame);
-            new PageController().render(SubFrameLogic.getCurrentPage(subFrame),intent);
+            new PageController().render(SubFrameLogic.getCurrentPage(subFrame));
             this.emit(RENDER_SUBFRAME,{"hub":this.hub,"frame":frame,"subFrame":subFrame});
         } catch (error) {
             console.error(error);

@@ -5,6 +5,7 @@ export const ENTITYTYPES ={
     FRAME:"FRAME",
     SUBFRAME:"SUBFRAME",
     PAGE:"PAGE",
+    INTENT:"INTENT",
 }
 
 export class BaseComponent {

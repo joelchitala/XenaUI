@@ -155,7 +155,6 @@ export class FrameLogic {
             this.setCurrentSubFrame(frame,this.getSubFrames(frame)[0]);
         }
 
-
         return this.render(frame);
     }
 

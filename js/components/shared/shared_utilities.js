@@ -2,6 +2,7 @@ import { FrameController } from "../../controllers/frame_controller.js";
 import { HubController } from "../../controllers/hub_controller.js";
 import { PageController } from "../../controllers/page_controller.js";
 import { SubFrameController } from "../../controllers/sub_frame_controller.js";
+import { Intent } from "../src/intents/intent.js";
 import { ENTITYTYPES } from "./base_component.js";
 
 export const navigator = (component,intent) =>{
@@ -48,7 +49,15 @@ export const navigator = (component,intent) =>{
             }
 
             frame_controller.goToSubFrame(frame,subFrame);
-            subFrame_controller.gotoPage(subFrame,component,intent);
+            
+            if(intent){
+                if(intent["data"]["entityType"] != ENTITYTYPES.INTENT){
+                    throw new Error("Invalid intent object");
+                }
+                subFrame.addIntent(intent);
+            }
+
+            subFrame_controller.gotoPage(subFrame,component);
         }           
         break;
 
@@ -89,4 +98,8 @@ export const refresher = (component) =>{
         default:
             throw new Error(`Invalid entity type ${component["data"]["entityType"]}`);
     }
+}
+
+export const createIntent = (name,payload) =>{
+    return new Intent(name,payload);
 }

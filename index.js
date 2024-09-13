@@ -1,6 +1,8 @@
 import { GOTO_FRAME, GOTO_SUBFRAME, REGISTERED_FRAME, REGISTERED_SUBFRAME } from "./js/components/shared/commands.js";
-import { navigator, refresher } from "./js/components/shared/shared_utilities.js";
+import { createIntent, navigator, refresher } from "./js/components/shared/shared_utilities.js";
 import { Hub } from "./js/components/src/hub/hub.js";
+import { Intent } from "./js/components/src/intents/intent.js";
+import { SubFrame } from "./js/components/src/sub_frame/sub_frame.js";
 import { FrameController } from "./js/controllers/frame_controller.js";
 import { HubController } from "./js/controllers/hub_controller.js";
 import { PageController } from "./js/controllers/page_controller.js";
@@ -78,14 +80,14 @@ const sub_frame_1 = subFrameController.createSubFrame(frame,(self,body,page)=>{
 });
 
 
-const page_1 = pageController.createPage(sub_frame_1,"Page 1",(self,body,intent)=>{
+const page_1 = pageController.createPage(sub_frame_1,"Page 1",(self,body)=>{
     body.innerHTML = `<h1>Hello from Page 1</h1>`;
 
     const btn = document.createElement('button');
     btn.innerHTML = `Go to page 2`
 
     btn.onclick = (e) =>{
-        navigator(page_2,{"msg":"Hello from page 1"});
+        navigator(page_2);
     }
 
     body.appendChild(btn);
@@ -94,14 +96,14 @@ const page_1 = pageController.createPage(sub_frame_1,"Page 1",(self,body,intent)
     nav_btn.innerHTML = `Go to page 3`
 
     nav_btn.onclick = (e) =>{
-        navigator(page_3,{"msg":"Hello from page 1"});
+        navigator(page_3,createIntent("id",1));
     }
 
     body.appendChild(nav_btn);
 
 });
 
-const page_2 = pageController.createPage(sub_frame_1,"Page 1",(self,body,intent)=>{
+const page_2 = pageController.createPage(sub_frame_1,"Page 1",(self,body)=>{
     body.innerHTML = `<h1>Hello from Page 2</h1>`;
 
     const btn = document.createElement('button');
@@ -117,12 +119,11 @@ const page_2 = pageController.createPage(sub_frame_1,"Page 1",(self,body,intent)
     nav_btn.innerHTML = `Go to page 4`
 
     nav_btn.onclick = (e) =>{
-        navigator(page_4,{"msg":"Hello from page 2"});
+        navigator(page_4);
     }
 
     body.appendChild(nav_btn);
 
-    console.log(intent);
 });
 
 const sub_frame_2 = subFrameController.createSubFrame(frame,(self,body,page)=>{
@@ -153,7 +154,7 @@ const sub_frame_2 = subFrameController.createSubFrame(frame,(self,body,page)=>{
     
 });
 
-const page_3 = pageController.createPage(sub_frame_2,"Page 3",(self,body,intent)=>{
+const page_3 = pageController.createPage(sub_frame_2,"Page 3",(self,body)=>{
     body.innerHTML = `
     <div>
         <h1>Hello from Page 3</h1>
@@ -161,8 +162,10 @@ const page_3 = pageController.createPage(sub_frame_2,"Page 3",(self,body,intent)
     </div>
     `;
 
+    const intent = self.getIntent("id");
+
     if(intent){
-        body.innerHTML += `${intent["msg"]}`
+        body.innerHTML += `${intent["payload"]}`
     }
 
     const btn = document.createElement('button');
@@ -177,7 +180,7 @@ const page_3 = pageController.createPage(sub_frame_2,"Page 3",(self,body,intent)
     
 });
 
-const page_4 = pageController.createPage(sub_frame_2,"Page 4",(self,body,intent)=>{
+const page_4 = pageController.createPage(sub_frame_2,"Page 4",(self,body)=>{
     body.innerHTML = `
     <div>
         <h1>Hello from Page 4</h1>
@@ -185,8 +188,10 @@ const page_4 = pageController.createPage(sub_frame_2,"Page 4",(self,body,intent)
     </div>
     `;
 
+    const intent = self.getIntent("id");
+
     if(intent){
-        body.innerHTML += `${intent["msg"]}`
+        body.innerHTML += `${intent["payload"]}`
     }
 
     const btn = document.createElement('button');
@@ -237,4 +242,5 @@ hubController.render();
 // const currFrame = controller.goToFrame(frame2);
 
 // console.log(currFrame);
+
 
