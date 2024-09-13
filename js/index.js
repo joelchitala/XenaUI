@@ -85,7 +85,7 @@ const sub_frame_1 = subFrameController.createSubFrame(frame,(self,body,page)=>{
     btn.innerHTML = `Go to Subframe 2`
 
     btn.onclick = (e) =>{
-        new FrameController().goToSubFrame(sub_frame_2.data["frame"],sub_frame_2);
+        navigator(sub_frame_2)
     }
 
     body.appendChild(btn);
@@ -141,7 +141,7 @@ const sub_frame_2 = subFrameController.createSubFrame(frame,(self,body,page)=>{
     btn.innerHTML = `Go to Subframe 3`
 
     btn.onclick = (e) =>{
-        new FrameController().goToSubFrame(sub_frame_3.data["frame"],sub_frame_3);
+        navigator(sub_frame_3);
     }
 
     body.appendChild(btn);
@@ -154,7 +154,7 @@ const sub_frame_3 = subFrameController.createSubFrame(frame,(self,body,page)=>{
     btn.innerHTML = `Go to Subframe 1`
 
     btn.onclick = (e) =>{
-        new FrameController().goToSubFrame(sub_frame_1.data["frame"],sub_frame_1);
+        navigator(sub_frame_1);
     }
 
     body.appendChild(btn);
