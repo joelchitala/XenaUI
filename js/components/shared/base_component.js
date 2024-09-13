@@ -11,6 +11,8 @@ export class BaseComponent {
     constructor(entityType) {
         this.data = {
             "id":generateUUID(),
+            "body":document.createElement('div'),
+            "template":null,
             "rendered":false,
             "entityType":entityType,
         }

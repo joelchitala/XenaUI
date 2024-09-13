@@ -111,6 +111,14 @@ export class FrameController extends BaseController {
         return FrameLogic.getCurrentSubFrame(frame);
     }
 
+    refresh(frame){
+        try {
+            FrameLogic.refresh(frame);            
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     render(frame){
         if(!frame){
             return;

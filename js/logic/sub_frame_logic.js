@@ -1,6 +1,6 @@
 export class SubFrameLogic {
     static getPages(subFrame){
-        return subFrame.data["frames"];
+        return [...subFrame.data["pages"]];
     }
 
     static getCurrentPage(subFrame){
@@ -9,8 +9,15 @@ export class SubFrameLogic {
 
     static setCurrentPage(subFrame, page){
 
+        if(!page){
+            frame.data["currentPage"] = null;
+
+            return null;
+        }
+
         if(subFrame.data["currentPage"] == page){
-            throw new Error(`Failed to set current page. Current page is already set to ${page.data["id"]}`);
+            // throw new Error(`Failed to set current page. Current page is already set to ${page.data["id"]}`);
+            return;
         }
 
         subFrame.data["currentPage"] = page;
@@ -46,6 +53,19 @@ export class SubFrameLogic {
         subFrame.data["template"] = template;
     }
 
+    static refresh(subFrame){
+        const body = subFrame.data["body"];
+        body.innerHTML = "";
+
+        const pages = this.getPages(subFrame);
+
+        if(pages.indexOf(this.getCurrentPage(subFrame)) > 0){
+            this.setCurrentPage(subFrame,pages[0]);
+        }
+        
+        return this.render(subFrame);
+    }
+
     static render(subFrame){
 
         const body = subFrame.data["body"];
@@ -57,5 +77,9 @@ export class SubFrameLogic {
         }
 
         template(subFrame,body,page);
+
+        subFrame.data["rendered"] = true;
+
+        return body;
     }
 }

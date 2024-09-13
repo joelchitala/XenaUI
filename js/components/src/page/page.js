@@ -12,6 +12,7 @@ export class Page extends BaseComponent{
                 "template":null,
                 "subFrame":null,
                 "refresh":refresh,
+                "intent":null,
             }
         }
     }

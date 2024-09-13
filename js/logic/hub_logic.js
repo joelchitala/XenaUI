@@ -55,23 +55,27 @@ export class HubLogic{
         this.render(hub);
     }
 
+    static refresh(hub){
+        return this.render(hub);
+    }
+
     static render(hub){
         const parentElement = hub.data["parentElement"];
         const currentFrame = this.getCurrentFrame(hub);
 
         if(!parentElement){
             throw new Error("Failed to render. Please set parent DOM element");
-            
         }
 
         if(!currentFrame){
-            // throw new Error("Failed to render. Please set current frame");
-            return;
+            throw new Error("Failed to render. Please set current frame");
         }
 
         parentElement.innerHTML = "";
         parentElement.appendChild(currentFrame.data["body"]);
 
         hub.data["rendered"] = true;
+
+        return parentElement;
     }
 }

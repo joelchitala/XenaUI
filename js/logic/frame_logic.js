@@ -1,7 +1,7 @@
 export class FrameLogic {
 
     static getSubFrames(frame){
-        return frame.data["frames"];
+        return [...frame.data["subFrames"]];
     }
 
     static getCurrentSubFrame(frame){
@@ -10,8 +10,15 @@ export class FrameLogic {
 
     static setCurrentSubFrame(frame,subFrame){
 
+        if(!subFrame){
+            frame.data["currentSubFrame"] = null;
+
+            return null;
+        }
+
         if(frame.data["currentSubFrame"] == subFrame){
-            throw new Error(`Failed to set current subFrame. Current subFrame is already set to ${subFrame.data["id"]}`);
+            // throw new Error(`Failed to set current subFrame. Current subFrame is already set to ${subFrame.data["id"]}`);
+            return;
         }
 
         frame.data["currentSubFrame"] = subFrame;
@@ -135,6 +142,23 @@ export class FrameLogic {
         frame.data["template"] = template;
     }
 
+    static refresh(frame){
+        const body = frame.data["body"];
+        body.innerHTML = "";
+
+        this.resetHistoryStack(frame);
+        this.resetForwardStack(frame);
+
+        const subFrames = this.getSubFrames(frame);
+
+        if(subFrames.indexOf(this.getCurrentSubFrame(frame)) > 0){
+            this.setCurrentSubFrame(frame,this.getSubFrames(frame)[0]);
+        }
+
+
+        return this.render(frame);
+    }
+
     static render(frame){
         const body = frame.data["body"];
         const template = frame.data["template"];
@@ -147,5 +171,7 @@ export class FrameLogic {
         template(frame,body,subFrame);
 
         frame.data["rendered"] = true;
+
+        return body;
     }
 }

@@ -7,8 +7,6 @@ export class Frame extends BaseComponent {
         this.data = {
             ...this.data,
             ...{
-                "body":document.createElement('div'),
-                "template":null,
                 "subFrames":[],
                 "currentSubFrame":null,
                 "historyStack" : [],

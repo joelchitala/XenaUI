@@ -1,9 +1,24 @@
 export class PageLogic {
-    static setTemplate(page,template = (self,body,data)=>{}){
+    static setIntent(page,intent){
+        page.data["intent"] = intent;
+    }
+
+    static getIntent(page){
+        return page.data["intent"];
+    }
+    
+    static setTemplate(page,template = (self,body,intent)=>{}){
         page.data["template"] = template;
     }
 
-    static render(page,data){
+    static refresh(page){
+        const body = page.data["body"];
+        body.innerHTML = "";
+
+        return this.render(page,this.getIntent(page));
+    }
+
+    static render(page,intent){
 
         const body = page.data["body"];
         const template = page.data["template"];
@@ -11,6 +26,11 @@ export class PageLogic {
         if(!template){
             throw new Error("No template found. Can not render");
         }
-        template(page,body,data);
+
+        template(page,body,intent);
+
+        page.data["rendered"] = true;
+
+        return body;
     }
 }
