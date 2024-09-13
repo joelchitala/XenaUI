@@ -1,12 +1,23 @@
 import { generateUUID } from "../../shared/utilities.js";
 import { Hub } from "../src/hub/hub.js";
 
+export const ENTITYTYPES ={
+    FRAME:"FRAME",
+    SUBFRAME:"SUBFRAME",
+    PAGE:"PAGE",
+}
+
 export class BaseComponent {
-    constructor() {
+    constructor(entityType) {
         this.data = {
             "id":generateUUID(),
             "rendered":false,
+            "entityType":entityType,
         }
+    }
+
+    getId(){
+        return this.data.id;
     }
 
     setRenderTrue(){
@@ -16,9 +27,4 @@ export class BaseComponent {
     setRenderFalse(){
         this.data.rendered = false;
     }
-
-    // emit(event){
-    //     const hub = new Hub();
-    //     hub.data.event_manager.process(event);
-    // }
 }

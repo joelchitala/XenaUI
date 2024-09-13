@@ -1,8 +1,8 @@
-import { BaseComponent } from "../../shared/base_component.js";
+import { BaseComponent, ENTITYTYPES } from "../../shared/base_component.js";
 
 export class SubFrame extends BaseComponent{
     constructor() {
-        super();
+        super(ENTITYTYPES.SUBFRAME);
 
         this.data = {
             ...this.data,

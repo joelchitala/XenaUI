@@ -32,9 +32,7 @@ export class SubFrameController extends BaseController {
         return subFrame;
     }
 
-    deleteSubFrame(subFrame){
-        const frame = subFrame.data["frame"];
-
+    deleteSubFrame(frame,subFrame){
         try {
             const subFrames = FrameLogic.deRegisterSubFrame(this.hub,subFrame);
 
@@ -49,8 +47,7 @@ export class SubFrameController extends BaseController {
         return FrameLogic.getSubFrames(frame);
     }
 
-    gotoPage(page){
-        const subFrame = page.data["subFrame"];
+    gotoPage(subFrame,page){
         try {
             const frame = subFrame.data["frame"];
             SubFrameLogic.setCurrentPage(subFrame,page);

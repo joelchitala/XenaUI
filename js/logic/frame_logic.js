@@ -15,6 +15,94 @@ export class FrameLogic {
         }
 
         frame.data["currentSubFrame"] = subFrame;
+
+        return frame.data["currentSubFrame"];
+    }
+
+    static getHistoryStack(frame){
+        return [...frame.data["historyStack"]]
+    }
+
+    static getForwardStack(frame){
+        return [...frame.data["forwardStack"]]
+    }
+
+    static appendToHistoryStack(frame,subFrame){
+        const historyStack = frame.data["historyStack"];
+        const len = historyStack.length;
+
+        if(len == 0){
+            historyStack.push(subFrame);
+            return historyStack;
+        }
+
+        if(historyStack[len - 1].getId() == subFrame.getId()){
+            return historyStack;
+        }
+
+        historyStack.push(subFrame);
+        
+        return historyStack;
+    }
+
+    static removeFromHistoryStack(frame, subFrame){
+        const historyStack = frame.data["historyStack"];
+
+        for (let i = 0; i < historyStack.length; i++) {
+            const historySubFrame = historyStack[i];
+            
+            if(subFrame.getId() == historySubFrame.getId()){
+                historyStack.splice(i,1);
+                return historyStack;
+            }
+        }
+
+        return historyStack;
+    }
+
+    static resetHistoryStack(frame){
+        frame.data["historyStack"] = [];
+
+        return frame.data["historyStack"];
+    }
+
+    static appendToForwardStack(frame,subFrame){
+        const forwardStack = frame.data["forwardStack"];
+        const len = forwardStack.length;
+
+        if(len == 0){
+            forwardStack.push(subFrame);
+            return forwardStack;
+        }
+
+        if(forwardStack[len - 1].getId() == subFrame.getId()){
+            return forwardStack;
+        }
+
+        forwardStack.push(subFrame);
+        
+        return forwardStack;
+    }
+
+    static removeFromForwardStack(frame, subFrame){
+        const forwardStack = frame.data["forwardStack"];
+
+        for (let i = 0; i < forwardStack.length; i++) {
+            const historySubFrame = forwardStack[i];
+            
+            if(subFrame.getId() == historySubFrame.getId()){
+                forwardStack.splice(i,1);
+                return forwardStack;
+            }
+        }
+
+        return forwardStack;
+    }
+
+    static resetForwardStack(frame){
+        frame.data["forwardStack"] = [];
+
+        return frame.data["forwardStack"];
     }
 
     static registerSubFrame(frame,subFrame){
